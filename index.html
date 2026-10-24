@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ha">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="BINGERL DIDDI — karanta Alƙur'ani, saurari tilawa, tare da fassarar Hausa.">
+<title>BINGERL DIDDI | Alƙur'ani Mai Girma</title>
+<style>
+:root{--green:#075b43;--gold:#d8b45a;--paper:#fbfaf5;--ink:#18231f}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:linear-gradient(135deg,#064b38,#0b7654);color:white;padding:28px 16px 24px;text-align:center;border-bottom:4px solid var(--gold)}
+.logo{font-size:clamp(26px,5vw,42px);font-weight:800;letter-spacing:2px;margin:0}.subtitle{margin:8px 0 0;color:#f4e9c8}
+main{max-width:900px;margin:22px auto;padding:0 14px}
+.panel{background:white;border:1px solid #e5e1d4;border-radius:16px;padding:16px;box-shadow:0 5px 18px #153c2b0d}
+.controls{display:grid;grid-template-columns:1fr auto;gap:10px;margin-bottom:12px}
+select,button{font:inherit;border-radius:10px;padding:12px;border:1px solid #c9d4cd}
+select{background:white;min-width:0}button{background:var(--green);color:white;border:0;font-weight:650;cursor:pointer}button:disabled{opacity:.55;cursor:wait}
+.note{font-size:14px;color:#59665f;line-height:1.55}.status{min-height:24px;color:var(--green);font-size:14px;margin:10px 0}
+.bismillah{text-align:center;font-size:28px;color:var(--green);padding:18px 4px}
+.ayah{border-top:1px solid #e9e6dc;padding:18px 4px}.arabic{font-family:"Noto Naskh Arabic","Amiri",serif;font-size:30px;line-height:2.1;text-align:right;direction:rtl;color:#152b22}
+.meta{font-size:12px;color:#78827b;margin:8px 0}.translation{font-size:16px;line-height:1.8}.play{padding:7px 11px;font-size:13px;margin-top:8px}
+footer{text-align:center;padding:24px;color:#66746b;font-size:13px}
+@media(max-width:520px){.controls{grid-template-columns:1fr}.arabic{font-size:27px}}
+</style>
+</head>
+<body>
+<header>
+  <h1 class="logo">BINGERL DIDDI</h1>
+  <p class="subtitle">Alƙur'ani Mai Girma • Tilawa • Fassarar Hausa</p>
+</header>
+<main>
+  <section class="panel">
+    <p class="note">Zaɓi sura domin karanta ayoyinta cikin Larabci, sauraron tilawa, da ganin fassarar Hausa idan bayanan fassarar suna samuwa. Ana buƙatar intanet domin loda bayanai da sauti.</p>
+    <div class="controls">
+      <select id="surah" aria-label="Zaɓi sura"></select>
+      <button id="load">Buɗe Sura</button>
+    </div>
+    <div id="status" class="status" role="status">Ana shirya jerin surori…</div>
+    <div id="content"></div>
+  </section>
+</main>
+<footer>© BINGERL DIDDI • Don amfanin karatu da koyon Alƙur'ani.</footer>
+<script>
+const API='https://api.alquran.cloud/v1';
+const select=document.getElementById('surah'), status=document.getElementById('status');
+const content=document.getElementById('content'), loadBtn=document.getElementById('load');
+function say(s){status.textContent=s}
+async function json(url){const r=await fetch(url);if(!r.ok)throw new Error('An kasa samun bayanai daga uwar garke.');const j=await r.json();if(j.code!==200)throw new Error(j.status||'Kuskuren bayanai');return j.data}
+async function init(){
+ try{
+  const surahs=await json(API+'/surah');
+  select.innerHTML=surahs.map(s=>`<option value="${s.number}">${s.number}. ${s.name} — ${s.englishName}</option>`).join('');
+  select.value='1'; say('A shirye. Zaɓi sura ko ka danna “Buɗe Sura”.'); await showSurah(1);
+ }catch(e){say('Ba a iya loda jerin surori ba. Duba intanet sannan ka sake gwadawa.');}
+}
+async function showSurah(n){
+ loadBtn.disabled=true;content.innerHTML='';say('Ana loda sura…');
+ try{
+  const [ar,ha]=await Promise.all([
+   json(API+`/surah/${n}/quran-uthmani`),
+   json(API+`/surah/${n}/hausa`)
+  ]);
+  const surah=ar;
+  say(`${surah.name} • ${surah.englishName} • Ayoyi ${surah.numberOfAyahs}`);
+  if(Number(n)!==1 && Number(n)!==9){
+   const b=document.createElement('div');b.className='bismillah';b.lang='ar';b.dir='rtl';b.textContent='بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ';content.appendChild(b);
+  }
+  surah.ayahs.forEach((a,i)=>{
+   const div=document.createElement('article');div.className='ayah';
+   const translation=ha.ayahs[i]?.text||'Ba a samu fassarar wannan aya ba.';
+   div.innerHTML=`<div class="meta">Aya ${a.numberInSurah}</div><div class="arabic" lang="ar" dir="rtl"></div><div class="translation"></div><button class="play" type="button">▶ Saurari aya</button>`;
+   div.querySelector('.arabic').textContent=a.text;
+   div.querySelector('.translation').textContent=translation;
+   const btn=div.querySelector('button'), audio=new Audio(`https://cdn.islamic.network/quran/audio/128/ar.alafasy/${a.number}.mp3`);
+   btn.addEventListener('click',()=>{document.querySelectorAll('audio').forEach(()=>{});audio.play().catch(()=>say('Ba a iya kunna sautin ba. Duba intanet.'));});
+   content.appendChild(div);
+  });
+ }catch(e){say('Ba a iya loda surar ba. Duba intanet sannan ka sake gwadawa.');}
+ finally{loadBtn.disabled=false}
+}
+loadBtn.addEventListener('click',()=>showSurah(select.value));
+select.addEventListener('change',()=>showSurah(select.value));
+init();
+</script>
+</body>
+</html>
