@@ -2,85 +2,197 @@
 <html lang="ha">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="BINGERL DIDDI — karanta Alƙur'ani, saurari tilawa, tare da fassarar Hausa.">
-<title>BINGERL DIDDI | Alƙur'ani Mai Girma</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#075b45">
+<title>BINGERL DIDDI QURAN</title>
 <style>
-:root{--green:#075b43;--gold:#d8b45a;--paper:#fbfaf5;--ink:#18231f}
-*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
-header{background:linear-gradient(135deg,#064b38,#0b7654);color:white;padding:28px 16px 24px;text-align:center;border-bottom:4px solid var(--gold)}
-.logo{font-size:clamp(26px,5vw,42px);font-weight:800;letter-spacing:2px;margin:0}.subtitle{margin:8px 0 0;color:#f4e9c8}
-main{max-width:900px;margin:22px auto;padding:0 14px}
-.panel{background:white;border:1px solid #e5e1d4;border-radius:16px;padding:16px;box-shadow:0 5px 18px #153c2b0d}
-.controls{display:grid;grid-template-columns:1fr auto;gap:10px;margin-bottom:12px}
-select,button{font:inherit;border-radius:10px;padding:12px;border:1px solid #c9d4cd}
-select{background:white;min-width:0}button{background:var(--green);color:white;border:0;font-weight:650;cursor:pointer}button:disabled{opacity:.55;cursor:wait}
-.note{font-size:14px;color:#59665f;line-height:1.55}.status{min-height:24px;color:var(--green);font-size:14px;margin:10px 0}
-.bismillah{text-align:center;font-size:28px;color:var(--green);padding:18px 4px}
-.ayah{border-top:1px solid #e9e6dc;padding:18px 4px}.arabic{font-family:"Noto Naskh Arabic","Amiri",serif;font-size:30px;line-height:2.1;text-align:right;direction:rtl;color:#152b22}
-.meta{font-size:12px;color:#78827b;margin:8px 0}.translation{font-size:16px;line-height:1.8}.play{padding:7px 11px;font-size:13px;margin-top:8px}
-footer{text-align:center;padding:24px;color:#66746b;font-size:13px}
-@media(max-width:520px){.controls{grid-template-columns:1fr}.arabic{font-size:27px}}
+:root{--green:#075b45;--green2:#0d7658;--gold:#d8b45b;--bg:#f4f7f3;--card:#fff;--ink:#18231e;--muted:#68756e;--line:#e1e9e3}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:linear-gradient(135deg,#064b39,#0d7658);color:#fff;padding:22px 16px 26px;text-align:center;border-bottom:4px solid var(--gold)}
+.logo{font-size:clamp(25px,5vw,38px);font-weight:800;letter-spacing:.5px}.subtitle{opacity:.92;margin-top:5px}
+.wrap{max-width:950px;margin:0 auto;padding:14px}
+.panel,.surah-head,.ayah{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:14px;margin-bottom:12px;box-shadow:0 2px 10px #1231}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px}.controls .wide{grid-column:1/-1}
+label{display:block;font-size:13px;color:var(--muted);margin:0 0 5px}
+select,button,input{font:inherit;border-radius:10px;border:1px solid #cbd8cf;padding:11px;background:white;color:var(--ink);width:100%;min-height:44px}
+button{background:var(--green);color:white;border:0;font-weight:650;cursor:pointer}button.secondary{background:#e8f1eb;color:var(--green);border:1px solid #cddfd2}button:disabled{opacity:.5}
+.buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.status{font-size:13px;color:var(--muted);margin-top:9px;min-height:18px}
+.surah-head{text-align:center;background:#edf5ef;border-color:#d5e5d9}
+.surah-ar{font-family:"Noto Naskh Arabic","Amiri","Traditional Arabic",serif;font-size:30px;direction:rtl;margin:3px 0}
+.surah-meta{color:var(--muted);font-size:13px}
+.ayah{padding:16px}.ayah-top{display:flex;align-items:center;justify-content:space-between;gap:8px;color:var(--muted);font-size:13px}
+.ayah-number{background:#eaf3ed;color:var(--green);padding:5px 9px;border-radius:99px;font-weight:700}
+.arabic{font-family:"Noto Naskh Arabic","Amiri","Traditional Arabic",serif;font-size:clamp(25px,5vw,34px);line-height:2.05;text-align:right;direction:rtl;margin:12px 0;white-space:normal}
+.translation{font-size:16px;line-height:1.75;border-top:1px solid var(--line);padding-top:10px;color:#35443b}
+.ayah-play{width:auto;min-height:35px;padding:7px 12px;font-size:13px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:20px 8px}
+.notice{font-size:13px;line-height:1.6;color:var(--muted)}
+@media(max-width:520px){.controls{grid-template-columns:1fr}.controls .wide{grid-column:auto}.buttons{grid-template-columns:1fr 1fr}.buttons button:last-child{grid-column:1/-1}.wrap{padding:10px}.panel{padding:12px}}
 </style>
 </head>
 <body>
 <header>
-  <h1 class="logo">BINGERL DIDDI</h1>
-  <p class="subtitle">Alƙur'ani Mai Girma • Tilawa • Fassarar Hausa</p>
+  <div class="logo">🕌 BINGERL DIDDI QURAN</div>
+  <div class="subtitle">Alƙur’ani Mai Girma • Larabci • Fassarar Hausa • Sauraron karatu</div>
 </header>
-<main>
+<main class="wrap">
   <section class="panel">
-    <p class="note">Zaɓi sura domin karanta ayoyinta cikin Larabci, sauraron tilawa, da ganin fassarar Hausa idan bayanan fassarar suna samuwa. Ana buƙatar intanet domin loda bayanai da sauti.</p>
     <div class="controls">
-      <select id="surah" aria-label="Zaɓi sura"></select>
-      <button id="load">Buɗe Sura</button>
+      <div class="wide"><label for="surahSelect">Zaɓi sura (Alƙur’ani yana farawa daga sama)</label><select id="surahSelect"><option>Ana ɗora surori 114…</option></select></div>
+      <div class="wide"><label for="reciterSelect">Zaɓi mai karatu</label><select id="reciterSelect">
+        <option value="ar.alafasy">Mishary Rashid Alafasy</option>
+        <option value="ar.abdurrahmaansudais">Abdurrahman As-Sudais</option>
+        <option value="ar.husary">Mahmoud Khalil Al-Husary</option>
+        <option value="ar.mahermuaiqly">Maher Al-Muaiqly</option>
+        <option value="ar.minshawi">Mohamed Siddiq Al-Minshawi</option>
+      </select></div>
     </div>
-    <div id="status" class="status" role="status">Ana shirya jerin surori…</div>
-    <div id="content"></div>
+    <div class="buttons">
+      <button id="playSurah">▶ Saurari surar gaba ɗaya</button>
+      <button id="pauseAudio" class="secondary">⏸ Dakata</button>
+      <button id="stopAudio" class="secondary">⏹ Tsaya</button>
+    </div>
+    <div class="buttons">
+      <button id="prevSurah" class="secondary">← Sura ta baya</button>
+      <button id="nextSurah" class="secondary">Sura ta gaba →</button>
+      <button id="topBtn" class="secondary">↑ Komawa sama</button>
+    </div>
+    <div id="status" class="status" role="status">Ana shirya cikakken Alƙur’ani…</div>
   </section>
+  <div id="surahHeader" class="surah-head">
+    <div class="surah-ar">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+    <div>Loading…</div>
+  </div>
+  <div id="ayahList" aria-live="polite"></div>
+  <footer>
+    BINGERL DIDDI QURAN • Ana buƙatar intanet domin loda ayoyi, fassara da sauti.<br>
+    Fassara tana taimakawa wajen fahimta; a koma ga malamai masu ilimi idan ana buƙatar tafsiri.
+  </footer>
 </main>
-<footer>© BINGERL DIDDI • Don amfanin karatu da koyon Alƙur'ani.</footer>
+<audio id="audio" preload="none"></audio>
 <script>
-const API='https://api.alquran.cloud/v1';
-const select=document.getElementById('surah'), status=document.getElementById('status');
-const content=document.getElementById('content'), loadBtn=document.getElementById('load');
-function say(s){status.textContent=s}
-async function json(url){const r=await fetch(url);if(!r.ok)throw new Error('An kasa samun bayanai daga uwar garke.');const j=await r.json();if(j.code!==200)throw new Error(j.status||'Kuskuren bayanai');return j.data}
-async function init(){
- try{
-  const surahs=await json(API+'/surah');
-  select.innerHTML=surahs.map(s=>`<option value="${s.number}">${s.number}. ${s.name} — ${s.englishName}</option>`).join('');
-  select.value='1'; say('A shirye. Zaɓi sura ko ka danna “Buɗe Sura”.'); await showSurah(1);
- }catch(e){say('Ba a iya loda jerin surori ba. Duba intanet sannan ka sake gwadawa.');}
-}
-async function showSurah(n){
- loadBtn.disabled=true;content.innerHTML='';say('Ana loda sura…');
- try{
-  const [ar,ha]=await Promise.all([
-   json(API+`/surah/${n}/quran-uthmani`),
-   json(API+`/surah/${n}/hausa`)
-  ]);
-  const surah=ar;
-  say(`${surah.name} • ${surah.englishName} • Ayoyi ${surah.numberOfAyahs}`);
-  if(Number(n)!==1 && Number(n)!==9){
-   const b=document.createElement('div');b.className='bismillah';b.lang='ar';b.dir='rtl';b.textContent='بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ';content.appendChild(b);
+(() => {
+  const API = "https://api.alquran.cloud/v1";
+  const $ = id => document.getElementById(id);
+  const select = $("surahSelect"), reciter = $("reciterSelect"), audio = $("audio");
+  const status = $("status"), list = $("ayahList"), head = $("surahHeader");
+  let surahs = [], currentSurah = 1, ayahs = [], audioAyahs = [], currentAudioIndex = -1, playingAll = false, requestId = 0;
+
+  function say(s){ status.textContent = s; }
+  async function api(url){
+    const r = await fetch(url);
+    if(!r.ok) throw new Error("Ba a iya samun bayanai daga intanet ba.");
+    const j = await r.json();
+    if(j.code !== 200) throw new Error(j.status || "An samu kuskure wajen loda bayanai.");
+    return j.data;
   }
-  surah.ayahs.forEach((a,i)=>{
-   const div=document.createElement('article');div.className='ayah';
-   const translation=ha.ayahs[i]?.text||'Ba a samu fassarar wannan aya ba.';
-   div.innerHTML=`<div class="meta">Aya ${a.numberInSurah}</div><div class="arabic" lang="ar" dir="rtl"></div><div class="translation"></div><button class="play" type="button">▶ Saurari aya</button>`;
-   div.querySelector('.arabic').textContent=a.text;
-   div.querySelector('.translation').textContent=translation;
-   const btn=div.querySelector('button'), audio=new Audio(`https://cdn.islamic.network/quran/audio/128/ar.alafasy/${a.number}.mp3`);
-   btn.addEventListener('click',()=>{document.querySelectorAll('audio').forEach(()=>{});audio.play().catch(()=>say('Ba a iya kunna sautin ba. Duba intanet.'));});
-   content.appendChild(div);
+  function escapeHTML(s){return String(s ?? "").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+
+  async function init(){
+    try {
+      surahs = await api(API + "/surah");
+      select.innerHTML = "";
+      surahs.forEach(s => {
+        const o = document.createElement("option");
+        o.value = s.number;
+        o.textContent = `${s.number}. ${s.englishName} — ${s.name}`;
+        select.appendChild(o);
+      });
+      select.value = "1";
+      await loadSurah(1);
+    } catch(e) {
+      say("Ba a iya loda Alƙur’ani ba. Ka duba intanet sannan ka sake buɗe shafin. ("+e.message+")");
+      head.innerHTML = '<div class="surah-ar">القرآن الكريم</div><div>Haɗa intanet sannan ka sake gwadawa.</div>';
+    }
+  }
+
+  async function loadSurah(num){
+    stopPlayback(false);
+    currentSurah = Number(num); select.value = String(num);
+    const myReq = ++requestId;
+    list.innerHTML = "";
+    head.innerHTML = '<div class="surah-ar">جارٍ التحميل…</div><div>Ana loda sura…</div>';
+    say("Ana loda sura da fassarar Hausa…");
+    try {
+      const [arabic, hausa] = await Promise.all([
+        api(`${API}/surah/${num}/quran-uthmani`),
+        api(`${API}/surah/${num}/hausa`)
+      ]);
+      if(myReq !== requestId) return;
+      ayahs = arabic.ayahs || [];
+      // Hausa translation may be unavailable from a specific API edition; do not silently invent it.
+      const translations = hausa.ayahs || [];
+      audioAyahs = [];
+      head.innerHTML = `<div class="surah-ar">${escapeHTML(arabic.name)}</div><strong>${escapeHTML(arabic.englishName)}</strong><div class="surah-meta">Sura ${arabic.number} • Ayoyi ${arabic.numberOfAyahs} • ${arabic.revelationType === "Meccan" ? "Makkiyya" : "Madaniyya"}</div>`;
+      list.innerHTML = ayahs.map((a,i)=>{
+        const tr = translations[i]?.text || "Ba a samu fassarar Hausa ta wannan aya ba.";
+        return `<article class="ayah" id="ayah-${i+1}">
+          <div class="ayah-top"><span class="ayah-number">Aya ${a.numberInSurah}</span><button class="ayah-play secondary" data-ayah-index="${i}">▶ Saurari aya</button></div>
+          <div class="arabic" lang="ar">${escapeHTML(a.text)}</div>
+          <div class="translation"><strong>Hausa:</strong> ${escapeHTML(tr)}</div>
+        </article>`;
+      }).join("");
+      // Audio editions return an audio URL per ayah; build URLs on demand so this works with the selected reciter.
+      audioAyahs = ayahs.map((a)=>({number:a.number, numberInSurah:a.numberInSurah}));
+      say(`An loda sura ${arabic.englishName}. Ayoyi ${ayahs.length}. Zaɓi “Saurari surar gaba ɗaya” domin ci gaba har ƙarshe.`);
+      list.querySelectorAll(".ayah-play").forEach(btn=>btn.addEventListener("click",()=>playSingle(Number(btn.dataset.ayahIndex))));
+      window.scrollTo({top:0,behavior:"smooth"});
+    } catch(e) {
+      if(myReq !== requestId) return;
+      head.innerHTML = '<div class="surah-ar">تعذر التحميل</div><div>Ba a iya loda wannan sura ba.</div>';
+      say("Matsalar loda sura/fassara. Ka tabbatar kana da intanet. Idan ta ci gaba, API na iya rashin samun fassarar Hausa.");
+    }
+  }
+
+  async function playAyahAt(index, all){
+    if(index < 0 || index >= ayahs.length){ playingAll=false; currentAudioIndex=-1; say("An kammala karatun surar. Alhamdulillah."); return; }
+    currentAudioIndex=index; playingAll=all;
+    say(`Ana karanta aya ${index+1} cikin ${ayahs.length}…`);
+    try {
+      const data = await api(`${API}/ayah/${audioAyahs[index].number}/${encodeURIComponent(reciter.value)}`);
+      if(!data.audio) throw new Error("Babu audio");
+      audio.src = data.audio;
+      await audio.play();
+      document.querySelectorAll(".ayah.playing").forEach(el=>el.classList.remove("playing"));
+      const el = $(`ayah-${index+1}`);
+      if(el){el.classList.add("playing");el.scrollIntoView({behavior:"smooth",block:"center"});}
+    } catch(e) {
+      playingAll=false;
+      say("Sautin bai fara ba. Ka gwada wani mai karatu ko ka duba intanet.");
+    }
+  }
+  function playSingle(i){ stopPlayback(false); playAyahAt(i,false); }
+  function stopPlayback(update=true){
+    playingAll=false; currentAudioIndex=-1; audio.pause(); audio.removeAttribute("src"); audio.load();
+    document.querySelectorAll(".ayah.playing").forEach(el=>el.classList.remove("playing"));
+    if(update) say("An dakatar da karatu.");
+  }
+  audio.addEventListener("ended",()=>{
+    if(playingAll && currentAudioIndex>=0) playAyahAt(currentAudioIndex+1,true);
+    else {currentAudioIndex=-1;say("An gama sauraron ayar.");}
   });
- }catch(e){say('Ba a iya loda surar ba. Duba intanet sannan ka sake gwadawa.');}
- finally{loadBtn.disabled=false}
-}
-loadBtn.addEventListener('click',()=>showSurah(select.value));
-select.addEventListener('change',()=>showSurah(select.value));
-init();
+  $("playSurah").addEventListener("click",()=>{
+    if(!ayahs.length){say("Jira a loda surar tukuna.");return;}
+    playAyahAt(0,true);
+  });
+  $("pauseAudio").addEventListener("click",()=>{
+    if(!audio.src){say("Ba a fara karatu ba tukuna.");return;}
+    audio.pause(); say("An dakatar na ɗan lokaci. Danna play domin fara daga inda aka tsaya.");
+  });
+  // Resume paused audio by tapping the main playback button.
+  $("playSurah").addEventListener("dblclick",()=>{ if(audio.src && audio.paused) audio.play().catch(()=>{}); });
+  $("stopAudio").addEventListener("click",()=>stopPlayback());
+  select.addEventListener("change",()=>loadSurah(Number(select.value)));
+  reciter.addEventListener("change",()=>{
+    if(playingAll || currentAudioIndex>=0) say("An canza mai karatu. Danna sauraro domin fara da sabon mai karatu.");
+    stopPlayback(false);
+  });
+  $("prevSurah").addEventListener("click",()=>loadSurah(Math.max(1,currentSurah-1)));
+  $("nextSurah").addEventListener("click",()=>loadSurah(Math.min(114,currentSurah+1)));
+  $("topBtn").addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
+  init();
+})();
 </script>
 </body>
 </html>
