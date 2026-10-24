@@ -1,0 +1,1 @@
+# B-GERL-DIDDI-QUR-AN
